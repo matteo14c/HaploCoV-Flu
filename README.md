@@ -1,4 +1,4 @@
-# HaploCoV -- HC_comb Grouping and Amino-Acid Annotation for IAV 2.3.4.4b
+# HaploCoV -- HC_comb Groups, segments groups, and annotation of non-synonymous SNVs as in Chiara et al 2026 (submitted)
 
 Scripts and Pipeline for Chiara et al. (submitted)
 
