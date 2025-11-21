@@ -63,7 +63,7 @@ This script regenerates **all the output files**.
 The pipeline script `GenerateResults.sh` supports the optional parameter --threads to 
 speed up computationally intensive steps on multi-core machines.
 
-### `--threads` / `-t`
+##### `--threads` / `-t`
 
 Specify the number of CPU cores to use for steps that support parallelization:
 
