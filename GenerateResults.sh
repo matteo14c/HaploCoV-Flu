@@ -18,6 +18,31 @@ META_TABLE="$DATA_DIR/MetadataTable.tsv"
 
 OUTPUT_TABLE="HC_comb_file.tsv"
 
+# Default number of threads
+THREADS=8
+
+########################################
+# Argument parsing
+########################################
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --threads|-t)
+            THREADS="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "Usage: $0 [--threads N]"
+            exit 0
+            ;;
+        *)
+            echo "[ERROR] Unknown argument: $1"
+            exit 1
+            ;;
+    esac
+done
+
+
 ##############################
 # Helper Functions
 ##############################
@@ -32,6 +57,36 @@ check_file() {
 
 check_dir() {
     [[ -d "$1" ]] || error "Required directory missing: $1"
+}
+
+cleanup_intermediate_files() {
+    banner "Cleaning intermediate files"
+
+    # Patterns to remove
+    patterns=(
+        "SPLITalnSeq*"
+	"*mgaps"
+        "*ntref"
+	"*delta"
+    )
+
+    for pattern in "${patterns[@]}"; do
+        found=false
+        for f in $pattern; do
+            if [[ -e "$f" ]]; then
+                found=true
+                rm -f "$f"
+            fi
+        done
+
+        if [[ "$found" = true ]]; then
+            info "Removed files matching: $pattern"
+        else
+            info "No files found for: $pattern"
+        fi
+    done
+
+    info "Intermediate cleanup complete."
 }
 
 ##############################
@@ -59,6 +114,9 @@ done
 
 info "All required directories and files are present."
 
+# remove intermediate files
+cleanup_intermediate_files
+
 ##############################
 # Step 1: Split multifasta
 ##############################
@@ -77,7 +135,7 @@ info "Segment-level FASTA created."
 banner "2. Generating segment-level HaploCoV files"
 
 for SEG in "${SEGMENTS[@]}"; do
-    fasta_file="$FASTA_DIR/${SEG}.segm.fa"
+    fasta_file="$DATA_DIR/${SEG}.segm.fa"
     check_file "$fasta_file"
 
     info "Processing segment: $SEG"
@@ -86,6 +144,7 @@ for SEG in "${SEGMENTS[@]}"; do
         --metadata "$META_TABLE" \
         --ref "$REF_DIR/ref${SEG}.fa" \
         --seq "$fasta_file" \
+	--nproc "${THREADS}" \
         --outfile "$DATA_DIR/${SEG}.HaploCoV"
 done
 
@@ -155,7 +214,7 @@ for SEG in "${SEGMENTS[@]}"; do
         --genome "$REF_DIR/ref${SEG}.fa" \
         --annot "$ANNOT_DIR/annot_table_${SEG}.pl" \
         --in "$phenetic" \
-        --out "$DATA_DIR/${SEG}.annot_V2.csv"
+        --out "${SEG}.annot_V2.csv"
 done
 
 info "All segments annotated."

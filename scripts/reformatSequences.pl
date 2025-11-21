@@ -7,8 +7,17 @@ $dataF="./data";
 	"NP"=>1,
 	"MP"=>1,
 	"NS"=>1,
-	"NA"=>1
+	"NA"=>1,
+	"M"=>1
 );
+
+foreach $segment (keys %valid)
+{
+	if (-e "$dataF/$segment.segm.fa")
+	{
+		system("rm $dataF/$segment.segm.fa");
+	}
+}
 
 while(<>)
 {

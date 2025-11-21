@@ -5,7 +5,8 @@ Scripts and Pipeline for Chiara et al. (submitted)
 This repository contains all scripts used to generate **HC_comb groups**
 and the **annotation of amino-acid substitutions** across the **eight
 genomic segments** of *Influenza A Virus (IAV) clade 2.3.4.4b*, as
-performed in **Chiara et al. (submitted)**.
+performed in **Chiara et al. (submitted) Distinctive viral genome signatures 
+are linked to repeated mammalian spillovers of H5N1 in North America**.
 
 Because of GISAID restrictions, **the raw sequences used in the analysis
 cannot be distributed directly**.\
@@ -13,8 +14,9 @@ Users must obtain these sequences independently using the **EPISET
 referenced in the manuscript**.
 
 Once the input sequences are obtained, the provided pipeline
-(`GenerateResults.sh`) reproduces all tables and annotations described
+(`GenerateResults.sh`) reproduces supplementary table 1 and annotations described
 in the manuscript.
+
 
 ------------------------------------------------------------------------
 
@@ -24,7 +26,9 @@ GISAID sequences must be retrieved using the EPISET referenced in the
 paper.\
 All sequences must be placed into a **single multi-FASTA file** named:
 
-    fasta/Sequences.fasta
+    Sequences.fasta
+
+The file should be placed in the fasta folder
 
 ### **FASTA header format**
 
@@ -54,7 +58,23 @@ Once `Sequences.fasta` is placed in `fasta/`, run:
 bash GenerateResults.sh
 ```
 
-This script regenerates **all results** described in the manuscript.
+This script regenerates **all the output files**.
+
+## Command-line Options
+
+The pipeline script `GenerateResults.sh` supports the optional parameter --threads to 
+speed up computationally intensive steps on multi-core machines.
+
+### `--threads` / `-t`
+
+Specify the number of CPU cores to use for steps that support parallelization:
+
+```bash
+bash GenerateResults.sh --threads 16
+```
+
+If no value is provided, the script defaults to using 8 processors.
+With default settings expected execution times range from 40 to 60 minutes.
 
 ------------------------------------------------------------------------
 
@@ -84,7 +104,9 @@ One per segment, named:
 Each file contains:\
 - phenetic patterns (presence/absence of nonsynonymous substitutions)\
 - annotated amino-acid effects\
-- These correspond to **Supplementary Table S6** in the manuscript
+- These correspond to **Supplementary Table S5 and S6** in the manuscript
+
+All the output files are saved directly in the main folder.
 
 ------------------------------------------------------------------------
 
@@ -131,8 +153,7 @@ written in Perl.
 If you use this code, please cite:
 
 **Chiara et al., (submitted).**\
-"Patterns of evolutionary change in IAV clade 2.3.4.4b revealed by
-HaploCoV."
+"Distinctive viral genome signatures are linked to repeated mammalian spillovers of H5N1 in North America"
 
 ------------------------------------------------------------------------
 
