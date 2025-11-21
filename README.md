@@ -1,12 +1,10 @@
-# HaploCoV -- HC_comb Groups, segments groups, and annotation of non-synonymous SNVs as in Chiara et al 2026 (submitted)
-
-Scripts and Pipeline for Chiara et al. (submitted)
+# Computational Workflow for: "Distinctive viral genome signatures are linked to repeated mammalian spillovers of H5N1 in North America"
 
 This repository contains all scripts used to generate **HC_comb groups**
 and the **annotation of amino-acid substitutions** across the **eight
 genomic segments** of *Influenza A Virus (IAV) clade 2.3.4.4b*, as
-performed in **Chiara et al. (submitted) Distinctive viral genome signatures 
-are linked to repeated mammalian spillovers of H5N1 in North America**.
+performed in **Distinctive viral genome signatures are linked to repeated 
+mammalian spillovers of H5N1 in North America**, by Chiara et al (submitted). 
 
 Because of GISAID restrictions, **the raw sequences used in the analysis
 cannot be distributed directly**.\
@@ -14,7 +12,7 @@ Users must obtain these sequences independently using the **EPISET
 referenced in the manuscript**.
 
 Once the input sequences are obtained, the provided pipeline
-(`GenerateResults.sh`) reproduces supplementary table 1 and annotations described
+(`GenerateResults.sh`) reproduces Supplementary Table 1 and annotations described
 in the manuscript.
 
 
